@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Confites Online - Inicio{% endblock %}
+
+{% block content %}
+    <div class="main-container">
+        <h1>Bienvenido a Confites Online</h1>
+        <p>Compra tus dulces y bebidas favoritas al mejor precio.</p>
+        
+        <div class="category-section">
+            <h2>Bebidas</h2>
+            <div class="product-card">
+                <div class="icon"><i class="fas fa-glass-martini-alt"></i></div>
+                <h3>Refresco</h3>
+                <div class="row">
+                    <div class="col-1 mx-auto">
+                        <input type="number" class="form-control">
+                    </div>
+                    <button>Añadir al carrito</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="icon"><i class="fas fa-beer"></i></div>
+                <h3>Cerveza</h3>
+                <button>Añadir al carrito</button>
+            </div>
+        </div>
+        
+        <div class="category-section">
+            <h2>Dulces</h2>
+            <div class="product-card">
+                <div class="icon"><i class="fas fa-candy-cane"></i></div>
+                <h3>Caramelo</h3>
+                <button>Añadir al carrito</button>
+            </div>
+            <div class="product-card">
+                <div class="icon"><i class="fas fa-cookie"></i></div>
+                <h3>Galletas</h3>
+                <button>Añadir al carrito</button>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <h2>Snacks</h2>
+            <div class="product-card">
+                <div class="icon"><i class="fas fa-apple-alt"></i></div>
+                <h3>Frutas Secas</h3>
+                <button>Añadir al carrito</button>
+            </div>
+            <div class="product-card">
+                <div class="icon"><i class="fas fa-chips"></i></div>
+                <h3>Papas Fritas</h3>
+                <button>Añadir al carrito</button>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <h2>Chocolates</h2>
+            <div class="product-card">
+                <div class="icon"><i class="fas fa-chocolate-bar"></i></div>
+                <h3>Chocolate Negro</h3>
+                <button>Añadir al carrito</button>
+            </div>
+            <div class="product-card">
+                <div class="icon"><i class="fas fa-cookie"></i></div>
+                <h3>Chocolate con Almendras</h3>
+                <button>Añadir al carrito</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
