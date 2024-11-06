@@ -41,7 +41,7 @@
                                                 <p class="card-title mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                     {{ producto.nombre }}
                                                 </p>
-                                                <p class="card-text mb-0">{{ producto.precio_unitario }} USD</p>
+                                                <p class="card-text mb-0">{{ producto.precio_unitario }} CLP</p>
                                                 <form method="POST" action="{% url 'agregar_a_carrito' producto.id %}">
                                                     {% csrf_token %}
                                                     <input type="number" name="cantidad" min="1" value="1" class="form-control mt-2" style="max-width: 100px;">
