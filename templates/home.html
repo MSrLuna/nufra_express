@@ -1,71 +1,65 @@
-{% extends 'base.html' %}
+{% extends 'baseIndex.html' %}
+{% load static %}
 
-{% block title %}Confites Online - Inicio{% endblock %}
+{% block title %}Productos - Tienda Online{% endblock %}
+
+{% block brand %}
+<a href="{% url 'home' %}" class="navbar-brand">
+    <img class="img-fluid d-block mx-auto" style="max-height: 5rem;" src="{% static 'images/Logo.png' %}" alt="Logo">
+</a>
+{% endblock %}
+
+{% block navitems %}
+<!-- Aquí puedes agregar otras categorías de navegación si es necesario -->
+{% endblock %}
 
 {% block content %}
-    <div class="main-container">
-        <h1>Bienvenido a Confites Online</h1>
-        <p>Compra tus dulces y bebidas favoritas al mejor precio.</p>
-        
-        <div class="category-section">
-            <h2>Bebidas</h2>
-            <div class="product-card">
-                <div class="icon"><i class="fas fa-glass-martini-alt"></i></div>
-                <h3>Refresco</h3>
-                <div class="row">
-                    <div class="col-1 mx-auto">
-                        <input type="number" class="form-control">
-                    </div>
-                    <button>Añadir al carrito</button>
+    <div class="container">
+        <h4 class="h4 text-center" style="border-bottom: solid; padding-bottom: 20px;">Nuestros Productos</h4>
+        {% if categorias %}
+            {% for categoria in categorias %}
+                <div class="category-section">
+                    <h5 class="text-dark fw-bold" style="border-bottom: 2px solid #ff9999; padding-bottom: 10px;">
+                        {{ categoria.nombre }}
+                    </h5>
+                    {% if productos %}
+                        <div class="row">
+                            {% for producto in productos %}
+                                {% if producto.categoria.id == categoria.id %}
+                                    <div class="col-md-4">
+                                        <div class="card mb-4 shadow-sm" style="min-width: 150px; max-width: 250px;">
+                                            <div class="card-body text-center">
+                                                <a href="#">
+                                                    {% if producto.imagen %}
+                                                        <img src="{{ producto.imagen.url }}" alt="Imagen Producto" class="img-fluid" style="height: 12rem;">
+                                                    {% else %}
+                                                        <span class="text-danger">No hay imagen del Producto</span>
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                            <div class="card-footer text-center">
+                                                <p class="card-title mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                    {{ producto.nombre }}
+                                                </p>
+                                                <p class="card-text mb-0">{{ producto.precio_unitario }} USD</p>
+                                                <form method="POST" action="{% url 'agregar_a_carrito' producto.id %}">
+                                                    {% csrf_token %}
+                                                    <input type="number" name="cantidad" min="1" value="1" class="form-control mt-2" style="max-width: 100px;">
+                                                    <button type="submit" class="btn btn-primary mt-2">Añadir al Carrito</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>No hay productos en esta categoría.</p>
+                    {% endif %}
                 </div>
-            </div>
-            <div class="product-card">
-                <div class="icon"><i class="fas fa-beer"></i></div>
-                <h3>Cerveza</h3>
-                <button>Añadir al carrito</button>
-            </div>
-        </div>
-        
-        <div class="category-section">
-            <h2>Dulces</h2>
-            <div class="product-card">
-                <div class="icon"><i class="fas fa-candy-cane"></i></div>
-                <h3>Caramelo</h3>
-                <button>Añadir al carrito</button>
-            </div>
-            <div class="product-card">
-                <div class="icon"><i class="fas fa-cookie"></i></div>
-                <h3>Galletas</h3>
-                <button>Añadir al carrito</button>
-            </div>
-        </div>
-
-        <div class="category-section">
-            <h2>Snacks</h2>
-            <div class="product-card">
-                <div class="icon"><i class="fas fa-apple-alt"></i></div>
-                <h3>Frutas Secas</h3>
-                <button>Añadir al carrito</button>
-            </div>
-            <div class="product-card">
-                <div class="icon"><i class="fas fa-chips"></i></div>
-                <h3>Papas Fritas</h3>
-                <button>Añadir al carrito</button>
-            </div>
-        </div>
-
-        <div class="category-section">
-            <h2>Chocolates</h2>
-            <div class="product-card">
-                <div class="icon"><i class="fas fa-chocolate-bar"></i></div>
-                <h3>Chocolate Negro</h3>
-                <button>Añadir al carrito</button>
-            </div>
-            <div class="product-card">
-                <div class="icon"><i class="fas fa-cookie"></i></div>
-                <h3>Chocolate con Almendras</h3>
-                <button>Añadir al carrito</button>
-            </div>
-        </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">No hay categorías disponibles.</p>
+        {% endif %}
     </div>
 {% endblock %}

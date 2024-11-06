@@ -43,8 +43,10 @@ class Producto(models.Model):
     categoria = models.ForeignKey(CategoriaProducto, on_delete=models.DO_NOTHING)
     descripcion = models.TextField()
     fecha_ingreso = models.DateField()
-    precio_unitario = models.FloatField() 
+    precio_unitario = models.FloatField()
     disponible = models.BooleanField(default=True)
+    imagen = models.ImageField(upload_to='productos/', blank=True, null=True)  # <-- Añadir este campo
+
 
 class Inventario(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.DO_NOTHING)
@@ -63,6 +65,7 @@ class OrdenesCompra(models.Model):
 class CarroCompra(models.Model):
     usuario_id = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
     producto = models.ForeignKey(Producto, on_delete=models.DO_NOTHING)
+    cantidad = models.IntegerField(default=1)  # <-- Añadir este campo
     total = models.FloatField()
 
 class Venta(models.Model):

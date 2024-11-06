@@ -1,0 +1,64 @@
+{% extends 'baseIndex.html' %}
+{% load static %}
+
+{% block title %}Mi Carrito de Compras{% endblock %}
+
+{% block brand %}
+<a href="{% url 'home' %}" class="navbar-brand">
+    <img class="img-fluid d-block mx-auto" style="max-height: 5rem;" src="{% static 'images/Logo.png' %}" alt="Logo">
+</a>
+{% endblock %}
+
+{% block navitems %}
+<!-- Aquí puedes agregar otras categorías de navegación si es necesario -->
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-3">
+            <h4 class="h4" style="border-bottom: solid;">Tu Carrito de Compras</h4>
+            <div class="table-responsive mt-3">
+                {% if carrito_items %}
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Total</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in carrito_items %}
+                            <tr>
+                                <td>
+                                    {% if item.producto.imagen %}
+                                    <img src="{{ item.producto.imagen.url }}" alt="Imagen Producto" class="img-fluid" style="max-height: 5rem;">
+                                    {% else %}
+                                    <span class="text-danger">No hay imagen del Producto</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ item.producto.nombre }}</td>
+                                <td>{{ item.cantidad }}</td>
+                                <td>{{ item.producto.precio_unitario }}</td>
+                                <td>{{ item.total }}</td>
+                                <td>
+                                    <!-- Aquí puedes agregar botones para eliminar o modificar la cantidad -->
+                                    <a href="{% url 'eliminar_del_carrito' item.id %}" class="btn btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <h4>Total: ${{ total_carrito }}</h4>
+                    <!-- Aquí puedes agregar un botón para finalizar la compra o redirigir a otra página -->
+                    <a href="{% url 'finalizar_compra' %}" class="btn btn-success">Finalizar Compra</a>
+                {% else %}
+                    <p class="text-center">Tu carrito está vacío.</p>
+                {% endif %}
+            </div>
+        </div>    
+    </div>
+{% endblock %}

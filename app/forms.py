@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import Usuario
+from .models import Producto, Usuario
 from django.contrib.auth.hashers import make_password
 
 class RegisterForm(forms.ModelForm):
@@ -20,3 +20,8 @@ class RegisterForm(forms.ModelForm):
 class LoginForm(forms.Form):
     email = forms.CharField(max_length=255)
     password = forms.CharField(widget=forms.PasswordInput)
+
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['nombre', 'categoria', 'descripcion', 'precio_unitario', 'disponible']
